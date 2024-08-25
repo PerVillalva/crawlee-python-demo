@@ -16,7 +16,7 @@ async def default_handler(context: PlaywrightCrawlingContext) -> None:
 
     if last_page:
         last_page_number = int(last_page)
-        # Enqueue all product links in the current page and label them as 'product'
+        # Enqueue all product links on the current page and label them as 'product'
         await context.add_requests(
             [
                 Request.from_url(context.request.loaded_url + f'?_paged={i}', label='listing')
@@ -29,7 +29,7 @@ async def listing_handler(context: PlaywrightCrawlingContext) -> None:
     """Listing request handler."""
     print(f'Processing {context.request.loaded_url}')
     
-    # Enqueue all product links in the current page and label them as 'product'
+    # Enqueue all product links on the current page and label them as 'product'
     await context.enqueue_links(
         selector='a.button.product_type_variable', label='product'
     )
