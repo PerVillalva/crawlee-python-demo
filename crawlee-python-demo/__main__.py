@@ -1,24 +1,25 @@
 import asyncio
 
-from crawlee.beautifulsoup_crawler import BeautifulSoupCrawler
+from crawlee.playwright_crawler.playwright_crawler import PlaywrightCrawler
 
 from .routes import router
 
 
 async def main() -> None:
     """The crawler entry point."""
-    crawler = BeautifulSoupCrawler(
+    crawler = PlaywrightCrawler(
+        browser_type='firefox',
+        headless=True,
         request_handler=router,
-        max_requests_per_crawl=15,
     )
 
     await crawler.run(
         [
-            'https://www.zappos.com/men/OgL9CsABAuICAhgH.zso',
+            'https://phones.mintmobile.com/',
         ]
     )
     
-    await crawler.export_data('output.csv')
+    await crawler.export_data('mintmobile_output.csv')
 
 
 if __name__ == '__main__':
